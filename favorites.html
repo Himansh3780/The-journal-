@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Favorites</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root { --bg: #fdfbf7; --text: #2d2d2d; --card: #fff; --border: #eaddcf; }
+        [data-theme="dark"] { --bg: #1c1c1c; --text: #e0e0e0; --card: #252525; --border: #333; }
+        body { background: var(--bg); color: var(--text); font-family: 'Open Sans', sans-serif; padding: 20px; transition: 0.3s; }
+        .container { max-width: 800px; margin: 0 auto; }
+        .fav-card { background: var(--card); border: 1px solid var(--border); padding: 20px; margin-bottom: 15px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; }
+        a { text-decoration: none; color: inherit; font-weight: bold; font-family: 'Lora', serif; font-size: 1.2rem; }
+        button { background: #ff4757; color: white; border: none; padding: 5px 15px; border-radius: 4px; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div id="app-nav"></div> <h1 style="text-align:center; font-family:'Lora', serif;">My Saved Articles ❤️</h1>
+        <p style="text-align:center; color:#888;">Your personal collection of wisdom.</p>
+        
+        <div id="fav-list" style="margin-top: 50px;">
+            </div>
+
+        <div id="app-footer"></div>
+    </div>
+
+    <script>const IS_ROOT = true;</script>
+    <script src="global.js"></script>
+
+    <script>
+        // LOAD FAVORITES
+        const list = document.getElementById('fav-list');
+        let favs = JSON.parse(localStorage.getItem('my_favorites') || "[]");
+
+        if (favs.length === 0) {
+            list.innerHTML = "<div style='text-align:center; padding:50px;'>No favorites yet. Go explore!</div>";
+        } else {
+            favs.forEach(f => {
+                list.innerHTML += `
+                    <div class="fav-card">
+                        <a href="${f.url}">${f.title}</a>
+                        <button onclick="removeFav('${f.url}')">Remove</button>
+                    </div>
+                `;
+            });
+        }
+
+        function removeFav(url) {
+            let favs = JSON.parse(localStorage.getItem('my_favorites') || "[]");
+            favs = favs.filter(f => f.url !== url); // Filter out the removed one
+            localStorage.setItem('my_favorites', JSON.stringify(favs));
+            location.reload(); // Refresh page to show changes
+        }
+    </script>
+
+</body>
+</html>
