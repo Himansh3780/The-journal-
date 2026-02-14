@@ -1,1 +1,173 @@
 
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THE JOURNAL // VITALITY</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- THEME VARIABLES --- */
+        :root { --bg: #fdfbf7; --card: #ffffff; --text-main: #2d2d2d; --text-light: #666666; --accent: #8c7b75; --highlight: #6b8c85; --border: #eaddcf; --shadow: 0 4px 12px rgba(0,0,0,0.05); }
+        [data-theme="dark"] { --bg: #1c1c1c; --card: #252525; --text-main: #e0e0e0; --text-light: #a0a0a0; --accent: #a89f91; --highlight: #84a59d; --border: #333333; --shadow: 0 4px 12px rgba(0,0,0,0.3); }
+
+        * { box-sizing: border-box; }
+        body { background-color: var(--bg); color: var(--text-main); font-family: 'Open Sans', sans-serif; margin: 0; padding: 0; line-height: 1.7; transition: 0.3s ease; }
+        h1, h2, h3, .brand { font-family: 'Lora', serif; }
+        a { text-decoration: none; color: inherit; transition: 0.2s; }
+        
+        .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+
+        /* Navigation */
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 0; border-bottom: 1px solid var(--border); margin-bottom: 30px; }
+        .brand { font-size: 1.1rem; font-weight: 600; display: flex; align-items: center; gap: 8px; }
+        .brand span { font-size: 1.4rem; color: var(--highlight); padding-bottom: 3px; }
+        .theme-btn { background: var(--bg); border: 1px solid var(--border); color: var(--text-main); padding: 8px 16px; border-radius: 4px; cursor: pointer; font-size: 0.85rem; }
+
+        /* Header */
+        header { text-align: center; margin-bottom: 40px; }
+        h1 { font-size: 2.8rem; margin: 0 0 10px 0; line-height: 1.1; }
+        .subtitle { font-size: 1rem; color: var(--text-light); font-style: italic; }
+
+        /* Marquee */
+        .marquee-container { background: var(--card); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 12px 0; overflow: hidden; white-space: nowrap; margin-bottom: 40px; color: var(--text-light); font-size: 0.85rem; }
+        .marquee-content { display: inline-block; animation: scrollText 35s linear infinite; }
+        @keyframes scrollText { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+        /* Search */
+        .search-wrapper { max-width: 600px; margin: 0 auto 50px; position: relative; }
+        input { width: 100%; padding: 15px 20px; background: var(--card); border: 1px solid var(--border); border-radius: 8px; font-size: 1rem; outline: none; box-shadow: var(--shadow); color: var(--text-main); }
+        input:focus { border-color: var(--highlight); }
+
+        /* Article Grid */
+        .files-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin-bottom: 60px; }
+        .post-card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 25px; box-shadow: var(--shadow); display: flex; flex-direction: column; transition: transform 0.2s; }
+        .post-card:hover { transform: translateY(-5px); border-color: var(--highlight); }
+        
+        .cat-tag { font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--highlight); margin-bottom: 10px; display: block; }
+        h2 { font-size: 1.5rem; margin: 0 0 10px 0; line-height: 1.3; }
+        p { font-size: 0.95rem; color: var(--text-light); margin-bottom: 20px; flex-grow: 1; }
+        .btn-read { font-size: 0.85rem; font-weight: 600; color: var(--highlight); text-transform: uppercase; }
+
+        /* Mobile Friendly Footer Nav */
+        .footer-nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-bottom: 30px; }
+        .nav-pill { padding: 10px 20px; border: 1px solid var(--border); border-radius: 50px; font-size: 0.9rem; background: var(--card); text-decoration: none; transition: 0.2s; }
+        .nav-pill:hover { background: var(--highlight); color: white; border-color: var(--highlight); }
+
+        /* Search Results */
+        #results { display: none; position: absolute; width: 100%; background: var(--card); border: 1px solid var(--border); z-index: 99; margin-top: 5px; border-radius: 8px; overflow: hidden; box-shadow: var(--shadow); }
+        .res-item { padding: 12px 15px; border-bottom: 1px solid var(--bg); cursor: pointer; }
+        .res-item:hover { background: var(--bg); color: var(--highlight); }
+
+        #progress-bar { position: fixed; top: 0; left: 0; height: 4px; background: var(--highlight); width: 0%; z-index: 9999; }
+        
+        @media(max-width: 600px) { h1 { font-size: 2.2rem; } }
+    </style>
+</head>
+<body>
+
+    <div id="progress-bar"></div>
+
+    <div class="container">
+        <nav>
+            <a href="../index.html" class="brand"><span>←</span> Home</a>
+            <button class="theme-btn" onclick="toggleTheme()">Day / Night</button>
+        </nav>
+
+        <header>
+            <h1>Vitality</h1>
+            <div class="subtitle">Optimizing biology, energy, and physical performance.</div>
+        </header>
+
+    </div>
+
+    <div class="marquee-container">
+        <div class="marquee-content">
+            Energy • Sleep • Nutrition • Movement • Longevity • Breathwork • Focus • Energy • Sleep • Nutrition • Movement • Longevity •
+        </div>
+    </div>
+
+    <div class="container">
+
+        <div class="search-wrapper">
+            <input type="text" id="searchInput" placeholder="Search vitality articles..." onkeyup="searchCheck()">
+            <div id="results"></div>
+        </div>
+
+        <div class="files-grid" id="article-container"></div>
+
+        <footer style="text-align: center; padding-bottom: 40px;">
+            <div class="footer-nav">
+                <a href="../social-intelligence/index.html" class="nav-pill">Social Int.</a>
+                <a href="../standards/index.html" class="nav-pill">Standards</a>
+                <a href="../cognitive-mastery/index.html" class="nav-pill">Cognitive</a>
+            </div>
+            <div style="color: var(--text-light); font-size: 0.8rem;">
+                &copy; 2026 The Journal.
+            </div>
+        </footer>
+
+    </div>
+
+    <script src="database.js"></script>
+
+    <script>
+        // 1. Render Articles from Database variable 'vitalityArticles'
+        const container = document.getElementById('article-container');
+        
+        if (typeof vitalityArticles !== 'undefined') {
+            vitalityArticles.forEach(article => {
+                container.innerHTML += `
+                    <article class="post-card">
+                        <span class="cat-tag">Vitality</span>
+                        <h2>${article.title}</h2>
+                        <p>${article.description}</p>
+                        <a href="${article.url}" class="btn-read">Read Article &rarr;</a>
+                    </article>
+                `;
+            });
+        } else {
+            container.innerHTML = "<p>No articles found. Check database.js</p>";
+        }
+
+        // 2. Theme Toggle
+        function toggleTheme() {
+            const html = document.documentElement;
+            html.setAttribute('data-theme', html.getAttribute('data-theme') === 'light' ? 'dark' : 'light');
+        }
+
+        // 3. Search Logic
+        function searchCheck() {
+            const val = document.getElementById('searchInput').value.toLowerCase();
+            const res = document.getElementById('results');
+            res.innerHTML = '';
+
+            if (val.length > 0 && typeof vitalityArticles !== 'undefined') {
+                const matches = vitalityArticles.filter(a => a.title.toLowerCase().includes(val));
+                
+                if (matches.length > 0) {
+                    res.style.display = 'block';
+                    matches.forEach(m => {
+                        res.innerHTML += `<div class="res-item" onclick="location.href='${m.url}'">${m.title}</div>`;
+                    });
+                } else {
+                    res.style.display = 'none';
+                }
+            } else {
+                res.style.display = 'none';
+            }
+        }
+
+        // 4. Scroll Bar
+        window.onscroll = function() {
+            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            document.getElementById("progress-bar").style.width = (winScroll / height) * 100 + "%";
+        };
+    </script>
+
+</body>
+</html>
