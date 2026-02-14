@@ -9,118 +9,59 @@
     <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
 
     <style>
-        /* --- THEME VARIABLES (Same as Main) --- */
-        :root {
-            --bg: #fdfbf7;
-            --card: #ffffff;
-            --text-main: #2d2d2d;
-            --text-light: #666666;
-            --accent: #8c7b75;
-            --highlight: #6b8c85;   /* Sage Green */
-            --border: #eaddcf;
-            --shadow: 0 4px 12px rgba(0,0,0,0.05); 
-        }
-
-        [data-theme="dark"] {
-            --bg: #1c1c1c;
-            --card: #252525;
-            --text-main: #e0e0e0;
-            --text-light: #a0a0a0;
-            --accent: #a89f91;
-            --highlight: #84a59d;
-            --border: #333333;
-            --shadow: 0 4px 12px rgba(0,0,0,0.3);
-        }
+        /* --- THEME VARIABLES --- */
+        :root { --bg: #fdfbf7; --card: #ffffff; --text-main: #2d2d2d; --text-light: #666666; --accent: #8c7b75; --highlight: #6b8c85; --border: #eaddcf; --shadow: 0 4px 12px rgba(0,0,0,0.05); }
+        [data-theme="dark"] { --bg: #1c1c1c; --card: #252525; --text-main: #e0e0e0; --text-light: #a0a0a0; --accent: #a89f91; --highlight: #84a59d; --border: #333333; --shadow: 0 4px 12px rgba(0,0,0,0.3); }
 
         * { box-sizing: border-box; }
-
-        body {
-            background-color: var(--bg);
-            color: var(--text-main);
-            font-family: 'Open Sans', sans-serif;
-            margin: 0;
-            padding: 0;
-            line-height: 1.7;
-            transition: background 0.3s ease, color 0.3s ease;
-        }
-
-        h1, h2, h3, .brand, .cat-btn { font-family: 'Lora', serif; }
+        body { background-color: var(--bg); color: var(--text-main); font-family: 'Open Sans', sans-serif; margin: 0; padding: 0; line-height: 1.7; transition: 0.3s ease; }
+        h1, h2, h3, .brand { font-family: 'Lora', serif; }
         a { text-decoration: none; color: inherit; transition: 0.2s; }
-
-        /* Scroll Bar */
-        #progress-bar {
-            position: fixed; top: 0; left: 0; height: 4px; background: var(--highlight); width: 0%; z-index: 9999;
-        }
-
+        
         .container { max-width: 900px; margin: 0 auto; padding: 20px; }
 
-        /* --- NAVIGATION --- */
-        nav {
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 20px 0; border-bottom: 1px solid var(--border); margin-bottom: 50px;
-        }
+        /* Navigation */
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 0; border-bottom: 1px solid var(--border); margin-bottom: 30px; }
+        .brand { font-size: 1.1rem; font-weight: 600; display: flex; align-items: center; gap: 8px; }
+        .brand span { font-size: 1.4rem; color: var(--highlight); padding-bottom: 3px; }
+        .theme-btn { background: var(--bg); border: 1px solid var(--border); color: var(--text-main); padding: 8px 16px; border-radius: 4px; cursor: pointer; font-size: 0.85rem; }
 
-        /* "Back to Home" Logic */
-        .brand { font-size: 1.2rem; font-weight: 600; letter-spacing: -0.5px; display: flex; align-items: center; gap: 10px;}
-        .brand span { font-size: 1.5rem; color: var(--highlight); }
-
-        .theme-btn {
-            background: var(--bg); border: 1px solid var(--border); color: var(--text-main);
-            padding: 8px 16px; border-radius: 4px; cursor: pointer; font-size: 0.8rem;
-        }
-        .theme-btn:hover { border-color: var(--highlight); color: var(--highlight); }
-
-        /* --- HEADER --- */
+        /* Header */
         header { text-align: center; margin-bottom: 40px; }
-        h1 { font-size: 3rem; margin: 0 0 15px 0; line-height: 1.2; color: var(--text-main); }
-        .subtitle { font-size: 1.1rem; color: var(--text-light); font-style: italic; }
+        h1 { font-size: 2.8rem; margin: 0 0 10px 0; line-height: 1.1; }
+        .subtitle { font-size: 1rem; color: var(--text-light); font-style: italic; }
 
-        /* --- SEARCH & MARQUEE --- */
-        .marquee-container {
-            background: var(--card); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
-            padding: 12px 0; overflow: hidden; white-space: nowrap; margin-bottom: 50px;
-            color: var(--text-light); font-size: 0.9rem;
-        }
+        /* Marquee */
+        .marquee-container { background: var(--card); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 12px 0; overflow: hidden; white-space: nowrap; margin-bottom: 40px; color: var(--text-light); font-size: 0.85rem; }
         .marquee-content { display: inline-block; animation: scrollText 35s linear infinite; }
         @keyframes scrollText { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
-        .search-wrapper { max-width: 600px; margin: 0 auto 60px; position: relative; }
-        
-        input {
-            width: 100%; padding: 15px 20px; background: var(--card); border: 1px solid var(--border);
-            border-radius: 8px; font-size: 1rem; color: var(--text-main); outline: none; box-shadow: var(--shadow);
-        }
+        /* Search */
+        .search-wrapper { max-width: 600px; margin: 0 auto 50px; position: relative; }
+        input { width: 100%; padding: 15px 20px; background: var(--card); border: 1px solid var(--border); border-radius: 8px; font-size: 1rem; outline: none; box-shadow: var(--shadow); color: var(--text-main); }
         input:focus { border-color: var(--highlight); }
 
-        /* --- POST CARDS --- */
-        .files-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-bottom: 80px;
-        }
-        .post-card {
-            background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 30px;
-            transition: transform 0.2s; box-shadow: var(--shadow); display: flex; flex-direction: column;
-        }
-        .post-card:hover { transform: translateY(-3px); border-color: var(--highlight); }
-        
-        .cat-tag { font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--highlight); margin-bottom: 10px; display: block; font-family: 'Open Sans', sans-serif;}
-        
-        h2 { font-size: 1.6rem; margin: 0 0 15px 0; color: var(--text-main); }
-        p { font-size: 0.95rem; color: var(--text-light); margin-bottom: 25px; flex-grow: 1; }
-        
-        .btn-read { font-size: 0.85rem; font-weight: 600; color: var(--highlight); text-transform: uppercase; letter-spacing: 0.5px; }
-        .btn-read:hover { text-decoration: underline; }
+        /* Grid */
+        .files-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin-bottom: 60px; }
+        .post-card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 25px; box-shadow: var(--shadow); display: flex; flex-direction: column; transition: transform 0.2s; }
+        .post-card:hover { transform: translateY(-5px); border-color: var(--highlight); }
+        .cat-tag { font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--highlight); margin-bottom: 10px; display: block; }
+        h2 { font-size: 1.5rem; margin: 0 0 10px 0; line-height: 1.3; }
+        p { font-size: 0.95rem; color: var(--text-light); margin-bottom: 20px; flex-grow: 1; }
+        .btn-read { font-size: 0.85rem; font-weight: 600; color: var(--highlight); text-transform: uppercase; }
+
+        /* Mobile Friendly Footer Nav */
+        .footer-nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-bottom: 30px; }
+        .nav-pill { padding: 10px 20px; border: 1px solid var(--border); border-radius: 50px; font-size: 0.9rem; background: var(--card); text-decoration: none; transition: 0.2s; }
+        .nav-pill:hover { background: var(--highlight); color: white; border-color: var(--highlight); }
 
         /* Search Results */
-        #results { display: none; position: absolute; width: 100%; background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 0; z-index: 99; margin-top: 5px; box-shadow: var(--shadow); overflow: hidden; }
-        .res-item { padding: 12px 20px; cursor: pointer; border-bottom: 1px solid var(--bg); font-size: 0.9rem; }
+        #results { display: none; position: absolute; width: 100%; background: var(--card); border: 1px solid var(--border); z-index: 99; margin-top: 5px; border-radius: 8px; overflow: hidden; box-shadow: var(--shadow); }
+        .res-item { padding: 12px 15px; border-bottom: 1px solid var(--bg); cursor: pointer; }
         .res-item:hover { background: var(--bg); color: var(--highlight); }
 
-        /* Footer */
-        footer { text-align: center; padding-bottom: 40px; }
-        .footer-nav { margin-bottom: 20px; }
-        .footer-nav a { margin: 0 10px; font-size: 0.9rem; color: var(--text-light); }
-        .footer-nav a:hover { color: var(--highlight); }
-
+        #progress-bar { position: fixed; top: 0; left: 0; height: 4px; background: var(--highlight); width: 0%; z-index: 9999; }
+        @media(max-width: 600px) { h1 { font-size: 2.2rem; } }
     </style>
 </head>
 <body>
@@ -128,9 +69,8 @@
     <div id="progress-bar"></div>
 
     <div class="container">
-        
         <nav>
-            <a href="../index.html" class="brand"><span>←</span> Back to Home</a>
+            <a href="../index.html" class="brand"><span>←</span> Home</a>
             <button class="theme-btn" onclick="toggleTheme()">Day / Night</button>
         </nav>
 
@@ -154,16 +94,15 @@
             <div id="results"></div>
         </div>
 
-        <div class="files-grid" id="article-container">
-            </div>
+        <div class="files-grid" id="article-container"></div>
 
-        <footer>
+        <footer style="text-align: center; padding-bottom: 40px;">
             <div class="footer-nav">
-                <a href="../vitality/index.html">Vitality</a> •
-                <a href="../standards/index.html">Standards</a> •
-                <a href="../cognitive-mastery/index.html">Cognitive Mastery</a>
+                <a href="../vitality/index.html" class="nav-pill">Vitality</a>
+                <a href="../standards/index.html" class="nav-pill">Standards</a>
+                <a href="../cognitive-mastery/index.html" class="nav-pill">Cognitive</a>
             </div>
-            <div style="color: var(--text-light); font-size: 0.85rem;">
+            <div style="color: var(--text-light); font-size: 0.8rem;">
                 &copy; 2026 The Journal.
             </div>
         </footer>
@@ -173,10 +112,9 @@
     <script src="database.js"></script>
 
     <script>
-        // --- Render Articles from Database ---
+        // 1. Render Articles from Database variable 'socialArticles'
         const container = document.getElementById('article-container');
         
-        // Check if database exists
         if (typeof socialArticles !== 'undefined') {
             socialArticles.forEach(article => {
                 const card = `
@@ -193,17 +131,17 @@
             container.innerHTML = "<p>No articles found. Please check database.js</p>";
         }
 
-        // --- Theme Toggle ---
+        // 2. Theme Toggle
         function toggleTheme() {
             const html = document.documentElement;
             html.setAttribute('data-theme', html.getAttribute('data-theme') === 'light' ? 'dark' : 'light');
         }
 
-        // --- Search Logic (Searching the Database) ---
+        // 3. Search Logic
         function searchCheck() {
             const input = document.getElementById('searchInput').value.toLowerCase();
             const resultsBox = document.getElementById('results');
-            resultsBox.innerHTML = ''; // Clear previous
+            resultsBox.innerHTML = '';
 
             if (input.length > 0 && typeof socialArticles !== 'undefined') {
                 const matches = socialArticles.filter(a => a.title.toLowerCase().includes(input));
@@ -221,7 +159,7 @@
             }
         }
 
-        // --- Scroll Bar ---
+        // 4. Scroll Bar
         window.onscroll = function() {
             let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
             let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
